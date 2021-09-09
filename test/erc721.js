@@ -21,7 +21,7 @@ contract('ERC721Token', accounts => {
         try {
             await ERC721TokenInstance.mint(trader1);
         } catch(e) {
-            assert(e.message, 'error message must contain revert');
+            assert(e.message, 'error message must contain revert privet');
         }
     });
 

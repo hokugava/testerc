@@ -2,12 +2,11 @@
 pragma solidity ^0.6.3;
 
 import "./Ownable.sol";
-import './interface/IERC721.sol';
 import './interface/ERC721Enumerable.sol';
 import './interface/ERC721TokenReceiver.sol';
 import './library/AddressUtils.sol';
 
-contract ERC721Token is IERC721, ERC721Enumerable, Ownable{
+contract ERC721Token is ERC721Enumerable, Ownable{
     using AddressUtils for address;
     
     bytes4 internal constant MAGIC_ON_ERC721_RECEIVED = 0x150b7a02;
@@ -33,9 +32,9 @@ contract ERC721Token is IERC721, ERC721Enumerable, Ownable{
     function mint() external onlyOwner{
         ownerTokensCount[creator]++;
         tokenIdToOwner[nextTokenId] = creator;
-        emit Transfer(address(0), creator, nextTokenId);
         tokenIndexes.push(tokenIndexes.length + 1);
         ownerTokenIndexes[creator].push(ownerTokenIndexes[creator].length+1);
+        emit Transfer(address(0), creator, nextTokenId);
         nextTokenId++;
     }
 
